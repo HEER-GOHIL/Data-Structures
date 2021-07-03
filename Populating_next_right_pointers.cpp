@@ -1,3 +1,4 @@
+// unoptimized soln - first thought
 class Solution {
 public:
     Node* connect(Node* root) {
@@ -59,5 +60,31 @@ public:
             
         }
         return root;
+    }
+};
+// optimized soln
+//no extra memory
+class Solution {
+public:
+    Node* connect(Node* root) {
+        func(root);
+        return root;
+    }
+    void func(Node* root)
+    {
+        if(root==NULL)
+        {
+            return;
+        }
+        if(root->left!=NULL)
+        {
+            root->left->next = root->right;
+        }
+        if(root->right!=NULL && root->next!=NULL)
+        {
+            root->right->next = root->next->left;
+        }
+        func(root->left);
+        func(root->right);
     }
 };
