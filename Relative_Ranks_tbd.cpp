@@ -1,38 +1,43 @@
 class Solution {
 public:
-    vector<string> findRelativeRanks(vector<int>& score) {
-        priority_queue<pair<int,int>>pq;//max heap
-        vector<string>v;
+   vector<string> findRelativeRanks(vector<int>& score) 
+    {
+        priority_queue<pair<int,int>> p;
+        
         for(int i=0;i<score.size();i++)
         {
-            pq.push({score[i],i});
+            p.push({score[i],i});
         }
-        for(int j=0;j<score.size();j++)
+        
+        vector<string> v(score.size());
+        string s;
+        for(int i=0;i<score.size();i++)
         {
-            int i = pq.top().second;
-            if(j<3)
+            if(i<3)
             {
-            if(j==0)
-            {
-                v[i] = "Gold Medal";
-                break;
+                switch(i)
+                {
+                    case 0:
+                        s="Gold Medal";
+                        break;
+                    case 1:
+                        s="Silver Medal";
+                        break;
+                    case 2:
+                        s="Bronze Medal";
+                        break;
+                }
             }
-            else if(j==1)
-            {
-                v[i] = "Silver Medal";
-                break;
-            }
-            else
-            {
-                v[i] = "Bronze Medal";
-                break;
-            }
-            }
+            
+            else s=to_string(i+1);
 
-                else v[i] = to_string(j+1);
-
-            pq.pop();
+            v[p.top().second]=s;
+            p.pop();
+            
         }
+        
         return v;
+        
     }
 };
+// Not my code :')
